@@ -19,7 +19,7 @@ namespace WebApiCore_MongoDB.Models
             public int supplierID { get; set; }
             public int categoryID { get; set; }
             public string quantityPerUnit { get; set; }
-            public int unitPrice { get; set; }
+            public double unitPrice { get; set; }
             public int unitsInStock { get; set; }
             public int unitsOnOrder { get; set; }
             public int reorderLevel { get; set; }

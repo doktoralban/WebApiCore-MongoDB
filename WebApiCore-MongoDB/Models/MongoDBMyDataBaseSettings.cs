@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace WebApiCore_MongoDB.Models
 {
-    public class ProductStoreDatabaseSettings : IProductStoreDatabaseSettings
+    //classın ve property lerin isimleri, appsettings teki isimle aynı isimde olmalı(MongoDBMyDataBaseSettings)
+    public class MongoDBMyDataBaseSettings : IProductStoreDatabaseSettings
     {
         public string ProductsCollectionName { get; set; }
         public string ConnectionString { get; set; }

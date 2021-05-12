@@ -6,11 +6,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApiCore_MongoDB.Models;
+using WebApiCore_MongoDB.Services;
 
 namespace WebApiCore_MongoDB
 {
@@ -26,6 +29,15 @@ namespace WebApiCore_MongoDB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region" - product service "
+            services.Configure<MongoDBMyDataBaseSettings>(
+                Configuration.GetSection(nameof(MongoDBMyDataBaseSettings)));
+
+            services.AddSingleton<IProductStoreDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<MongoDBMyDataBaseSettings>>().Value);
+
+            services.AddSingleton<ProductService>();
+            #endregion
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
