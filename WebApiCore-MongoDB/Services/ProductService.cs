@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace WebApiCore_MongoDB.Services
     public class ProductService
     {
         private readonly IMongoCollection<Product> _products;
+        private readonly IMongoCollection<vOrdersAndDetails> _vOrdersAndDetails;
 
         public ProductService(IProductStoreDatabaseSettings settings)
         {
@@ -17,6 +19,9 @@ namespace WebApiCore_MongoDB.Services
             var database = client.GetDatabase(settings.DatabaseName);
 
             _products = database.GetCollection<Product>(settings.ProductsCollectionName);
+
+            //..
+            _vOrdersAndDetails = database.GetCollection<vOrdersAndDetails>("vOrdersAndDetails");
         }
 
 
@@ -27,6 +32,11 @@ namespace WebApiCore_MongoDB.Services
 
         public Product Get(string id) =>
             _products.Find<Product>(book => book.Id == id).FirstOrDefault();
+
+        public List<vOrdersAndDetails> GetOrderAndDetails()
+        {
+            return     _vOrdersAndDetails.Find(vOrdersAndDetails => true).ToList().Take(1000000).ToList();
+        }
 
         public Product Create(Product product)
         {
