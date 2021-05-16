@@ -49,6 +49,9 @@ namespace WebApiCore_MongoDB
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //TODO: aþaðýdaki satýr loacalhost tan diðer bir programdam bu servisin çaðrýlmasýný saðlýyor. yoksa client tarafý *cors* hatasý veriyor.
+            app.UseCors(builder => builder.AllowAnyOrigin());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

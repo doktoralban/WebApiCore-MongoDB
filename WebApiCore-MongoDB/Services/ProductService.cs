@@ -35,7 +35,7 @@ namespace WebApiCore_MongoDB.Services
 
         public List<vOrdersAndDetails> GetOrderAndDetails()
         {
-            return     _vOrdersAndDetails.Find(vOrdersAndDetails => true).ToList().Take(1000000).ToList();
+            return     _vOrdersAndDetails.Find(vOrdersAndDetails => true).ToList().Take(100).ToList();
         }
 
         public Product Create(Product product)
