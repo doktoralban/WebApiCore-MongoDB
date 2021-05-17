@@ -29,14 +29,15 @@ namespace WebApiCore_MongoDB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            #region" - product service "
+            #region" -   serviceS "
             services.Configure<MongoDBMyDataBaseSettings>(
                 Configuration.GetSection(nameof(MongoDBMyDataBaseSettings)));
 
-            services.AddSingleton<IProductStoreDatabaseSettings>(sp =>
+            services.AddSingleton<IStoreDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<MongoDBMyDataBaseSettings>>().Value);
 
             services.AddSingleton<ProductService>();
+            services.AddSingleton<OrderService>();
             #endregion
 
             services.AddControllers();

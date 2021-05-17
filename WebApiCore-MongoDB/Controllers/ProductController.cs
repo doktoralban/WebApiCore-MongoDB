@@ -20,10 +20,7 @@ namespace WebApiCore_MongoDB.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        [Route("GetOrderAndDetails")]
-        public ActionResult<List<vOrdersAndDetails>> GetOrderAndDetails() =>
-          _productService.GetOrderAndDetails();
+   
 
 
         [HttpGet]

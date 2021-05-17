@@ -11,17 +11,16 @@ namespace WebApiCore_MongoDB.Services
     public class ProductService
     {
         private readonly IMongoCollection<Product> _products;
-        private readonly IMongoCollection<vOrdersAndDetails> _vOrdersAndDetails;
+   
 
-        public ProductService(IProductStoreDatabaseSettings settings)
+        public ProductService(IStoreDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _products = database.GetCollection<Product>(settings.ProductsCollectionName);
+            _products = database.GetCollection<Product>("Products");
 
-            //..
-            _vOrdersAndDetails = database.GetCollection<vOrdersAndDetails>("vOrdersAndDetails");
+           
         }
 
 
@@ -33,10 +32,7 @@ namespace WebApiCore_MongoDB.Services
         public Product Get(string id) =>
             _products.Find<Product>(book => book.Id == id).FirstOrDefault();
 
-        public List<vOrdersAndDetails> GetOrderAndDetails()
-        {
-            return     _vOrdersAndDetails.Find(vOrdersAndDetails => true).ToList().Take(100).ToList();
-        }
+      
 
         public Product Create(Product product)
         {
